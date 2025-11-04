@@ -11,8 +11,7 @@ import checkMembers from "./utils/checker.js";
 //   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers],
 // });
 
-const selfBotMain = new selfClient({}); // is in 100k server
-const selfBotSecond = new selfClient({}); // is in blacklisted server
+const selfBot = new selfClient({}); // is in 100k server
 
 // discordBot.on("clientReady", async (readyDiscordBot) => {
 //   console.log(`Bot: ${readyDiscordBot.user.username} is ready!`);
@@ -31,19 +30,14 @@ const selfBotSecond = new selfClient({}); // is in blacklisted server
 //   }
 // });
 
-selfBotMain.on("ready", async (readySelfBot) => {
-  console.log(`Main: ${readySelfBot.user.username} is ready!`);
+selfBot.on("ready", async (readySelfBot) => {
+  console.log(`Account: ${readySelfBot.user.username} is ready!`);
 
   while (true) {
-    await checkMembers(selfBotMain, selfBotSecond);
+    await checkMembers(selfBot);
     await setTimeout(1000 * 60 * 10);
   }
 });
 
-selfBotSecond.on("ready", async (readySelfBot) => {
-  console.log(`Second: ${readySelfBot.user.username} is ready!`);
-});
-
 // discordBot.login(process.env.DISCORD_BOT_TOKEN);
-selfBotMain.login(process.env.ACCOUNT_TOKEN_MAIN);
-selfBotSecond.login(process.env.ACCOUNT_TOKEN_SECOND);
+selfBot.login(process.env.ACCOUNT_TOKEN_MAIN);

@@ -7,12 +7,12 @@ import {
 import { getMemberDb, insertMemberDb } from "../database/queries.js";
 import { getGuild } from "./misc.js";
 
-async function checkMembers(selfBotMain: Client, selfBotSecond: Client) {
+async function checkMembers(selfBot: Client) {
   try {
     console.log("Checking!");
 
     // 1. Get Main Guild
-    const mainGuild = getGuild(selfBotMain, process.env.MAIN_GUILD_ID);
+    const mainGuild = getGuild(selfBot, process.env.MAIN_GUILD_ID);
 
     if (!mainGuild) return console.error(`Main Guild not found!`);
 
@@ -33,7 +33,7 @@ async function checkMembers(selfBotMain: Client, selfBotSecond: Client) {
 
     // 3.   Check
     for (const targetGuildId of targetGuildIds) {
-      const targetGuild = getGuild(selfBotSecond, targetGuildId);
+      const targetGuild = getGuild(selfBot, targetGuildId);
 
       if (!targetGuild) continue;
 
@@ -51,7 +51,7 @@ async function checkMembers(selfBotMain: Client, selfBotSecond: Client) {
       );
 
       await compareMembersAndNotify(
-        selfBotSecond,
+        selfBot,
         members,
         targetGuildMembers,
         targetGuild
@@ -63,12 +63,12 @@ async function checkMembers(selfBotMain: Client, selfBotSecond: Client) {
 }
 
 async function compareMembersAndNotify(
-  selfBotSecond: Client,
+  selfBot: Client,
   mainMembers: GuildMember[],
   targetGuildMembers: GuildMember[],
   targetGuild: Guild
 ) {
-  const notifyChannel = selfBotSecond.channels.cache.get(
+  const notifyChannel = selfBot.channels.cache.get(
     process.env.NOTIFY_CHANNEL_ID
   ) as TextChannel;
 
@@ -79,7 +79,7 @@ async function compareMembersAndNotify(
   for (const mainMember of mainMembers) {
     if (mainMember.user.bot) continue;
 
-    if (mainMember.id === selfBotSecond.user?.id) continue;
+    if (mainMember.id === selfBot.user?.id) continue;
 
     const roleIds = process.env.ROLE_IDS.split(",").map((id) => id.trim());
 
