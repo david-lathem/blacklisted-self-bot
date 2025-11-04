@@ -87,15 +87,15 @@ async function compareMembersAndNotify(
 
     if (!targetGuildMembers.find((tG) => tG.id === mainMember.id)) continue;
 
-    if (getMemberDb.get({ guildId: targetGuild.id, memberId: mainMember.id }))
-      continue;
+    // if (getMemberDb.get({ guildId: targetGuild.id, memberId: mainMember.id }))
+    //   continue;
 
     foundMembers += `${mainMember} (${mainMember.user.username}) (${mainMember.id})\n`;
 
-    insertMemberDb.run({ guildId: targetGuild.id, memberId: mainMember.id });
+    // insertMemberDb.run({ guildId: targetGuild.id, memberId: mainMember.id });
   }
 
-  if (!foundMembers) return;
+  if (!foundMembers) foundMembers = "Not found any user";
 
   const chunkSize = 1900;
 
