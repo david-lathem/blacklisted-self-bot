@@ -40,4 +40,4 @@ selfBot.on("ready", async (readySelfBot) => {
 });
 
 // discordBot.login(process.env.DISCORD_BOT_TOKEN);
-selfBot.login(process.env.ACCOUNT_TOKEN_MAIN);
+selfBot.login(process.env.ACCOUNT_TOKEN);
