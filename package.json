@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start:prod": "npm run build && node --env-file=.env dist/index.js",
+    "start:prod": "node --env-file=.env dist/index.js",
     "start": "npm run build && node --env-file=.env dist/index.js",
     "dev": "tsc-watch --onCompilationComplete \"node --env-file=.env ./dist/index.js\"",
     "build": "rimraf dist && tsc"
