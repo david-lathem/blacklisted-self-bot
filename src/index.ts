@@ -36,7 +36,7 @@ selfBotMain.on("ready", async (readySelfBot) => {
 
   while (true) {
     await checkMembers(selfBotMain, selfBotSecond);
-    await setTimeout(1000 * 60);
+    await setTimeout(1000 * 60 * 10);
   }
 });
 

@@ -18,7 +18,12 @@ async function checkMembers(selfBotMain: Client, selfBotSecond: Client) {
 
     // 2. Get Members, has perm to use op code 8 with getting all members!
 
-    await mainGuild.members.fetch();
+    if (mainGuild.memberCount !== mainGuild.members.cache.size) {
+      console.log(
+        `Fetching members in main, count not correct ${mainGuild.memberCount} ${mainGuild.members.cache.size}`
+      );
+      await mainGuild.members.fetch();
+    }
 
     const members = [...mainGuild.members.cache.values()];
 
@@ -32,9 +37,14 @@ async function checkMembers(selfBotMain: Client, selfBotSecond: Client) {
 
       if (!targetGuild) continue;
 
-      const targetGuildMembers = [
-        ...(await targetGuild.members.fetch()).values(),
-      ];
+      if (targetGuild.memberCount !== targetGuild.members.cache.size) {
+        console.log(
+          `Fetching members in target ${targetGuild.name}, count not correct ${targetGuild.memberCount} ${targetGuild.members.cache.size}`
+        );
+        await targetGuild.members.fetch();
+      }
+
+      const targetGuildMembers = [...targetGuild.members.cache.values()];
 
       console.log(
         `Guild: ${targetGuild.name} (${targetGuild.id}), Members: ${targetGuildMembers.length}`
