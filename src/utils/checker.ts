@@ -81,6 +81,10 @@ async function compareMembersAndNotify(
 
     if (mainMember.id === selfBotSecond.user?.id) continue;
 
+    const roleIds = process.env.ROLE_IDS.split(",").map((id) => id.trim());
+
+    if (!roleIds.some((roleId) => mainMember.roles.cache.has(roleId))) continue;
+
     if (!targetGuildMembers.find((tG) => tG.id === mainMember.id)) continue;
 
     if (getMemberDb.get({ guildId: targetGuild.id, memberId: mainMember.id }))
@@ -93,7 +97,12 @@ async function compareMembersAndNotify(
 
   if (!foundMembers) return;
 
-  await notifyChannel.send(`**${targetGuild.name}**:\n${foundMembers}`);
+  const chunkSize = 1900;
+
+  for (let i = 0; i < foundMembers.length; i += chunkSize) {
+    const chunk = foundMembers.slice(i, i + chunkSize);
+    await notifyChannel.send(`**${targetGuild.name}**:\n${chunk}`);
+  }
 }
 
 export default checkMembers;

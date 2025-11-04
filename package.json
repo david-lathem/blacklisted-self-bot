@@ -8,7 +8,6 @@
   "dependencies": {
     "better-sqlite3": "^12.4.1",
     "debug": "^4.4.3",
-    "discord.js": "^14.24.2",
     "discord.js-selfbot-v13": "^3.7.1",
     "rimraf": "^6.1.0",
     "tsc-watch": "^7.2.0",

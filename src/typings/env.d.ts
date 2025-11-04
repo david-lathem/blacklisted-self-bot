@@ -2,10 +2,11 @@ declare global {
   namespace NodeJS {
     interface ProcessEnv {
       //   DISCORD_BOT_TOKEN: string;
-      ACCOUNT_TOKEN_MAIN: string;
-      ACCOUNT_TOKEN_SECOND: string;
+      ACCOUNT_TOKEN: string;
+      // ACCOUNT_TOKEN_SECOND: string;
       MAIN_GUILD_ID: string;
       NOTIFY_CHANNEL_ID: string;
+      ROLE_IDS: string;
       BLACLISTED_GUILD_IDS: string;
     }
   }
