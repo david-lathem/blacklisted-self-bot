@@ -8,6 +8,7 @@ declare global {
       NOTIFY_CHANNEL_ID: string;
       ROLE_IDS: string;
       BLACLISTED_GUILD_IDS: string;
+      BLACKLISTED_USER_IDS: string;
     }
   }
 }

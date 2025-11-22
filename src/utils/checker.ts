@@ -79,6 +79,9 @@ async function compareMembersAndNotify(
   for (const mainMember of mainMembers) {
     if (mainMember.user.bot) continue;
 
+    if (process.env.BLACKLISTED_USER_IDS.split(",").includes(mainMember.id))
+      continue;
+
     if (mainMember.id === selfBot.user?.id) continue;
 
     const roleIds = process.env.ROLE_IDS.split(",").map((id) => id.trim());
